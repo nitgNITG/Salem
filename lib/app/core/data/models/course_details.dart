@@ -114,6 +114,14 @@ class Section {
         modules:
             (json["modules"] as List).map((i) => Module.fromJson(i)).toList());
   }
+
+  @override
+  String toString() {
+    // Convert the list of modules to a string representation
+    String modulesString = modules.map((module) => module.toString()).join(', ');
+
+    return 'Section(id: $id, name: $name, visible: $visible, summary: $summary, summaryformat: $summaryformat, section: $section, hiddenbynumsections: $hiddenbynumsections, uservisible: $uservisible, modules: [$modulesString])';
+  }
 }
 
 class Module {
@@ -127,6 +135,7 @@ class Module {
   final String? onclick;
   final dynamic afterlink;
   final String? customdata;
+  final String? avail_message;
   final String? completion;
   final bool? noviewlink;
   final String? paid;
@@ -142,6 +151,7 @@ class Module {
 
   Module(
       {required this.id,
+        required this.avail_message,
       required this.name,
       required this.instance,
       required this.modname,
@@ -166,6 +176,7 @@ class Module {
 
   factory Module.fromJson(Map<String, dynamic> i) {
     return Module(
+      avail_message:i["avail_message"],
       id: i["id"],
       name: i["name"],
       instance: i["instance"],
@@ -179,7 +190,7 @@ class Module {
       completion: i["completion"].toString(),
       noviewlink: i["noviewlink"],
       paid: i["paid"],
-      avail: i["availability"],
+      avail: i["avail"],
       quizType: i["quiz_type"],
       resourceType: i["resource_type"],
       pageUrl: i["page_url"],
@@ -196,7 +207,14 @@ class Module {
       uservisible: i["uservisible"],
     );
   }
+
+  @override
+  String toString() {
+    // Customizing the toString method to display all relevant details
+    return 'Module(avail_message: $avail_message, avail: $avail,name:$name )';
+  }
 }
+
 
 class FileDetails {
   final String? type;

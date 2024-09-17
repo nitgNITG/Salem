@@ -42,3 +42,26 @@ Text getNormalText(
     textAlign: align,
   );
 }
+
+Text getNormalText2(
+  String? text,
+  BuildContext context, {
+  Color? color,
+  FontWeight? weight,
+  double? size,
+  TextAlign? align,
+  String? family,
+  bool?     underline
+}) {
+  return Text(
+    text ?? "",
+    style: getThemeData(context).textTheme.displayMedium!.copyWith(
+          height: 1.5,fontFamily: family,
+          color: color ?? getThemeData(context).colorScheme.onBackground,
+          fontWeight: weight ?? FontWeight.normal,
+          fontSize: size, decoration:underline!=null? TextDecoration.underline:null,
+      decorationColor: color
+        ),
+    textAlign: align,
+  );
+}

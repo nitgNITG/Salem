@@ -22,7 +22,7 @@ import '../contact_us/contact_us.dart';
 import '../student_profile/profile_page.dart';
 
 var scaffoldKey = GlobalKey<ScaffoldState>();
-final TextEditingController TC=TextEditingController();
+final TextEditingController TC = TextEditingController();
 
 class HomeMainParentPage extends StatefulWidget {
   HomeMainParentPage({super.key, this.connectivityResult});
@@ -37,132 +37,203 @@ class _HomeMainParentPageState extends State<HomeMainParentPage> {
 
   final HomeController controller2 = HomeController();
 
-  final controller3=BaseProfileController();
+  final controller3 = BaseProfileController();
 
   @override
   void initState() {
-    TC.addListener(() { if(TC.text=='CLICKED') { setState(() {});   TC.clear();}  });
+    TC.addListener(() {
+      if (TC.text == 'CLICKED') {
+        setState(() {});
+        TC.clear();
+      }
+    });
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return PopScope(
-      onPopInvoked: (popInvoked) {
-   Exit(context);
-      },
-      canPop: false,
-      child: Scaffold(
-      key: scaffoldKey,
-      drawerEnableOpenDragGesture: false,
-      drawer: Drawer(
-      child: !controller2.getIsUserGuest() ?FutureBuilder(future: controller3.Student(), builder: (_,s){
-      if(s.connectionState==ConnectionState.waiting)
-        return Draw(controller3.getLoggedUser());
-     else   if(s.connectionState==ConnectionState.done)
-      {  LoggedUser lu=s.data!;
-        return Draw(lu);}
-      return Draw(controller3.getLoggedUser());}):Container(),
-      ),
-      body:BaseView<MainAppController>(
-        injectedObject: controller,
-        connectivityResult: widget.connectivityResult,
-        child: Container(
-          color: getThemeData(context).colorScheme.background,
-          child: Stack(
-            children: [
-              getAppPostionedBackground(context),
-              Scaffold(
-                backgroundColor: Colors.white.withOpacity(0),
-                // floatingActionButton: ValueListenableBuilder(
-                //   valueListenable: controller.currentPageIndex,
-                //   builder: (context, index, ch) {
-                //     if (index == 0) {
-                //       return SvgPicture.asset("assets/images/whatsapp_ic.svg")
-                //           .onTap(
-                //         () {
-                //           contactUsWhatsapp();
-                //         },
-                //       );
-                //     } else {
-                //       return const SizedBox();
-                //     }
-                //   },
-                // ),
-                body: PageView.builder(
-                  controller: controller.pageViewController,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount: controller.getIsUserGuest()
-                      ? controller.pagesForPageViewForGuest.length
-                      : controller.pagesForPageView.length,
-                  itemBuilder: (context, index) => controller.getIsUserGuest()
-                      ? controller.pagesForPageViewForGuest[index]
-                      : controller.pagesForPageView[index],
-                ),
-                bottomNavigationBar: !controller.getIsUserGuest()
-                    ? const AppBottomNavigationBar()
-                    : null,
-              ),
-            ],
+        onPopInvoked: (popInvoked) {
+          Exit(context);
+        },
+        canPop: false,
+        child: Scaffold(
+          key: scaffoldKey,
+          drawerEnableOpenDragGesture: false,
+          drawer: Drawer(
+            child: !controller2.getIsUserGuest()
+                ? FutureBuilder(
+                    future: controller3.Student(),
+                    builder: (_, s) {
+                      if (s.connectionState == ConnectionState.waiting)
+                        return Draw(controller3.getLoggedUser());
+                      else if (s.connectionState == ConnectionState.done) {
+                        LoggedUser lu = s.data!;
+                        return Draw(lu);
+                      }
+                      return Draw(controller3.getLoggedUser());
+                    })
+                : Container(),
           ),
-        ),
-      ),
-    ));
+          body: BaseView<MainAppController>(
+            injectedObject: controller,
+            connectivityResult: widget.connectivityResult,
+            child: Container(
+              color: getThemeData(context).colorScheme.background,
+              child: Stack(
+                children: [
+                  getAppPostionedBackground(context),
+                  Scaffold(
+                    backgroundColor: Colors.white.withOpacity(0),
+                    // floatingActionButton: ValueListenableBuilder(
+                    //   valueListenable: controller.currentPageIndex,
+                    //   builder: (context, index, ch) {
+                    //     if (index == 0) {
+                    //       return SvgPicture.asset("assets/images/whatsapp_ic.svg")
+                    //           .onTap(
+                    //         () {
+                    //           contactUsWhatsapp();
+                    //         },
+                    //       );
+                    //     } else {
+                    //       return const SizedBox();
+                    //     }
+                    //   },
+                    // ),
+                    body: PageView.builder(
+                      controller: controller.pageViewController,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: controller.getIsUserGuest()
+                          ? controller.pagesForPageViewForGuest.length
+                          : controller.pagesForPageView.length,
+                      itemBuilder: (context, index) =>
+                          controller.getIsUserGuest()
+                              ? controller.pagesForPageViewForGuest[index]
+                              : controller.pagesForPageView[index],
+                    ),
+                    bottomNavigationBar: !controller.getIsUserGuest()
+                        ? const AppBottomNavigationBar()
+                        : null,
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ));
   }
 
-  Widget Draw(LoggedUser lu){
+  Widget Draw(LoggedUser lu) {
     print(lu.token);
     return Column(
         mainAxisAlignment: MainAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          Container(width:
-          getScreenHeight(context),height: getScreenHeight(context)>getScreenWidth(context)? getScreenHeight(context)*0.3:getScreenWidth(context)*0.2,color: HexColor('#45474B'),
-              child: Column(        mainAxisAlignment: MainAxisAlignment.start,
+          Container(
+              width: getScreenHeight(context),
+              height: getScreenHeight(context) > getScreenWidth(context)
+                  ? getScreenHeight(context) * 0.3
+                  : getScreenWidth(context) * 0.2,
+              color: HexColor('#45474B'),
+              child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
                   mainAxisSize: MainAxisSize.min,
-                  children:[ Container(width: getScreenWidth(context)*0.25,height:getScreenHeight(context)*0.2 ,
-                      decoration: BoxDecoration(shape: BoxShape.circle,image:DecorationImage(image:
-                      NetworkImage(lu.image),fit:BoxFit.fill )
-                      )),
-                    Text(lu.firstName+' '+lu.lastName,style: TextStyle(fontFamily: 'Medium',fontSize:18)),
-                    Text(lu.email,style: TextStyle(fontFamily: 'Medium',fontSize:18))
-                  ]
-              )),
-    Container(width:
-    getScreenHeight(context),height: getScreenHeight(context)>getScreenWidth(context)? getScreenHeight(context)*0.5:getScreenWidth(context)*0.25,
-child:ListView(  scrollDirection: Axis.vertical,
-               shrinkWrap: true,children: [
-            getHeightSpace(10),
-            ListTile(onTap: (){
-              scaffoldKey.currentState!.closeDrawer();Navigator.of(context).push(MaterialPageRoute(builder: (_)=>StudentProfile() ));},leading:
-            ImageIcon(AssetImage('assets/images/Subtract.png'),color: kDefaultIconDarkColor,size: 16),
-                title:Text(getL10(context).profile,style: TextStyle(fontFamily: 'Medium',fontWeight: FontWeight.w300,fontSize:16,color:kDefaultIconDarkColor)) ),
-            Container(height: 2,width: getScreenWidth(context)*0.6,color: HexColor('#F4CE14')),
-            ListTile(onTap: (){ scaffoldKey.currentState!.closeDrawer();Navigator.of(context).push(MaterialPageRoute(builder: (_)=>ContactUs()) );},leading:
-            ImageIcon(AssetImage('assets/images/Vector (6).png'),color: kDefaultIconDarkColor,size: 16),
-                title:Text(getL10(context).contactUs,style: TextStyle(fontSize:16 ,color:kDefaultIconDarkColor,fontFamily: 'Medium',fontWeight: FontWeight.w300)) ),
-            getHeightSpace( getScreenHeight(context)>getScreenWidth(context)? getScreenHeight(context)*0.3:getScreenWidth(context)*0.1),
-            InkWell(onTap: () async {
-              scaffoldKey.currentState!.closeDrawer();
-              // await controller2.getLogout(lu.token!).then((value) async {
-              //   if(value) {
-              //     bool result=   await controller.setIsUserGuest();
-              //     if(result)
-              await SharedPreferencesService.instance.clear();
-              Navigator.of(context).pushAndRemoveUntil(routeToPage(LoginPage()), (c) => false);
-              //   }
-              // });
-              },child:
-            Container(
-              margin: EdgeInsets.symmetric(horizontal: 20,vertical: 15),
-                decoration: BoxDecoration(borderRadius: BorderRadius.circular(5),color:HexColor('#F4CE14')),
-                width: getScreenWidth(context)*0.4,height:
-                getScreenHeight(context)>getScreenWidth(context)? getScreenHeight(context)*0.05:getScreenWidth(context)*0.05,
-                child: ImageIcon(AssetImage('assets/images/logout.png'),size:getScreenWidth(context)*0.1 ,color: HexColor('#45474B'))
-            )),
-          ]))
+                  children: [
+                    Container(
+                        width: getScreenWidth(context) * 0.25,
+                        height: getScreenHeight(context) * 0.2,
+                        decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            image: DecorationImage(
+                                image: NetworkImage(lu.image),
+                                fit: BoxFit.fill))),
+                    Text(lu.firstName + ' ' + lu.lastName,
+                        style: TextStyle(fontFamily: 'Medium', fontSize: 18)),
+                    Text(lu.email,
+                        style: TextStyle(fontFamily: 'Medium', fontSize: 18))
+                  ])),
+          Container(
+              width: getScreenHeight(context),
+              height: getScreenHeight(context) > getScreenWidth(context)
+                  ? getScreenHeight(context) * 0.6
+                  : getScreenWidth(context) * 0.6,
+              child: ListView(
+                  scrollDirection: Axis.vertical,
+                  shrinkWrap: true,
+                  children: [
+                    getHeightSpace(10),
+                    ListTile(
+                        onTap: () {
+                          scaffoldKey.currentState!.closeDrawer();
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (_) => StudentProfile()));
+                        },
+                        leading: ImageIcon(
+                            AssetImage('assets/images/Subtract.png'),
+                            color: kDefaultIconDarkColor,
+                            size: 16),
+                        title: Text(getL10(context).profile,
+                            style: TextStyle(
+                                fontFamily: 'Medium',
+                                fontWeight: FontWeight.w300,
+                                fontSize: 16,
+                                color: kDefaultIconDarkColor))),
+                    Container(
+                        height: 2,
+                        width: getScreenWidth(context) * 0.6,
+                        color: HexColor('#F4CE14')),
+                    ListTile(
+                        onTap: () {
+                          scaffoldKey.currentState!.closeDrawer();
+                          Navigator.of(context).push(
+                              MaterialPageRoute(builder: (_) => ContactUs()));
+                        },
+                        leading: ImageIcon(
+                            AssetImage('assets/images/Vector (6).png'),
+                            color: kDefaultIconDarkColor,
+                            size: 16),
+                        title: Text(getL10(context).contactUs,
+                            style: TextStyle(
+                                fontSize: 16,
+                                color: kDefaultIconDarkColor,
+                                fontFamily: 'Medium',
+                                fontWeight: FontWeight.w300))),
+                    getHeightSpace(
+                        getScreenHeight(context) > getScreenWidth(context)
+                            ? getScreenHeight(context) * 0.3
+                            : getScreenWidth(context) * 0.1),
+                    InkWell(
+                        onTap: () async {
+                          scaffoldKey.currentState!.closeDrawer();
+                          // await controller2.getLogout(lu.token!).then((value) async {
+                          //   if(value) {
+                          //     bool result=   await controller.setIsUserGuest();
+                          //     if(result)
+                          await SharedPreferencesService.instance.clear();
+                          Navigator.of(context).pushAndRemoveUntil(
+                              routeToPage(LoginPage()), (c) => false);
+                          //   }
+                          // });
+                        },
+                        child: Container(
+                            margin: EdgeInsets.symmetric(
+                                horizontal: 20, vertical: 15),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(5),
+                                color: HexColor('#F4CE14')),
+                            width: getScreenWidth(context) * 0.4,
+                            height: getScreenHeight(context) >
+                                    getScreenWidth(context)
+                                ? getScreenHeight(context) * 0.05
+                                : getScreenWidth(context) * 0.05,
+                            child: ImageIcon(
+                                AssetImage('assets/images/logout.png'),
+                                size: getScreenWidth(context) * 0.1,
+                                color: HexColor('#45474B')))),
+                  ]))
         ]);
   }
-  Exit(BuildContext context){
+
+  Exit(BuildContext context) {
     showDialog(
       context: context,
       builder: (context) => BackdropFilter(
@@ -172,8 +243,7 @@ child:ListView(  scrollDirection: Axis.vertical,
         ),
         child: AlertDialog(
           backgroundColor: HexColor('#45474B'),
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(0)),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)),
           titlePadding: const EdgeInsets.symmetric(
             horizontal: 10,
             vertical: 10,
@@ -204,7 +274,8 @@ child:ListView(  scrollDirection: Axis.vertical,
                         },
                         child: Text(
                           getL10(context).yes,
-                          style: TextStyle(color: Colors.white,fontFamily: 'Bold'),
+                          style: TextStyle(
+                              color: Colors.white, fontFamily: 'Bold'),
                         ),
                       ),
                     ),
@@ -218,7 +289,8 @@ child:ListView(  scrollDirection: Axis.vertical,
                         },
                         child: Text(
                           getL10(context).cancel,
-                          style: TextStyle(color: Colors.white,fontFamily: 'Bold'),
+                          style: TextStyle(
+                              color: Colors.white, fontFamily: 'Bold'),
                         ),
                       ),
                     ),
@@ -227,11 +299,12 @@ child:ListView(  scrollDirection: Axis.vertical,
               ],
             ),
           ),
-        ),                                                   /// اخر حاجه خالص هل تريد الخروج ام لا
+        ),
+
+        /// اخر حاجه خالص هل تريد الخروج ام لا
       ),
       barrierDismissible: true,
-      barrierColor:
-      const Color.fromARGB(255, 255, 255, 255).withOpacity(0.15),
+      barrierColor: const Color.fromARGB(255, 255, 255, 255).withOpacity(0.15),
     );
   }
 }

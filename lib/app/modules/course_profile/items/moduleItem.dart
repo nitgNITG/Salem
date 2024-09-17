@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:al_mariey/app/core/constants_and_enums/static_data.dart';
 import 'package:al_mariey/app/core/data/models/course_details.dart';
 import 'package:al_mariey/app/core/extensions_and_so_on/extesions.dart';
@@ -20,18 +22,19 @@ class ModuleItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print( module.modicon);
+    print(module.modicon);
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       padding: const EdgeInsets.all(5),
-      height: getScreenHeight(context)*0.05,
-       width: getScreenWidth(context),   
-          color: HexColor('#D9D9D9'),
+      height: getScreenHeight(context) * 0.09,
+      width: getScreenWidth(context),
+      color: HexColor('#D9D9D9'),
       child: Row(
         children: [
           Image.network(
             module.modicon ?? StaticData.imagePlaceHolder,
-            errorBuilder: (ee,rr,cc)=> Icon(Icons.error,color:HexColor('#45474B'),size: 28),
+            errorBuilder: (ee, rr, cc) =>
+                Icon(Icons.error, color: HexColor('#45474B'), size: 28),
             width: 30,
             height: 30,
           ),
@@ -39,11 +42,13 @@ class ModuleItem extends StatelessWidget {
             getIcon(),
           ),*/
           getWidthSpace(10),
-          getNormalText(
-            module.name,
-            context,
-            color: HexColor('#45474B'),
-            family: 'Bold',size: 14
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              getNormalText(module.name, context,
+                  color: HexColor('#45474B'), family: 'Bold', size: 14),
+            ],
           ),
         ],
       ),
@@ -52,7 +57,7 @@ class ModuleItem extends StatelessWidget {
           Provider.of<CourseProfileController>(context, listen: false);
 
       // if (controller.isUserTeacherOfThisCourseOrAdminOrStudentSubscribed()) {
-       /* if (module.modname == "resource") {
+      /* if (module.modname == "resource") {
           final token = controller.getLoggedUser().token;
           // print("////${module.url}&token=$token");
           Navigator.push(
@@ -64,17 +69,23 @@ class ModuleItem extends StatelessWidget {
               ),
             ),
           );
-        } else */{
-          final token = controller.getLoggedUser().token;
+        } else */
+      {
+        final token = controller.getLoggedUser().token;
+        if (module.avail_message == null) {
           Navigator.push(
-            context,
-            routeToPage((module.fileDetails!=null && module.fileDetails!.type!=null && module.fileDetails!.type=='file')?
-            OpenPdfPage(fileUrl:"${module.fileDetails!.filepath!}&token=$token" ,
-            title: module.name): AppWebView(
-                "${module.url}&token=$token",
-                module.name)
-            ) );
+              context,
+              routeToPage((module.fileDetails != null &&
+                      module.fileDetails!.type != null &&
+                      module.fileDetails!.type == 'file')
+                  ? OpenPdfPage(
+                      fileUrl: "${module.fileDetails!.filepath!}&token=$token",
+                      title: module.name)
+                  : AppWebView("${module.url}&token=$token", module.name)));
+        } else {
+          showMyDialog(context);
         }
+      }
       // } else {
       //   showSnackBar(
       //     context,
@@ -94,5 +105,55 @@ class ModuleItem extends StatelessWidget {
       return Icons.quiz_outlined;
     else
       return Icons.web;
+  }
+
+  showMyDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) => BackdropFilter(
+        filter: ImageFilter.blur(
+          sigmaX: 2.0,
+          sigmaY: 1.5,
+        ),
+        child: AlertDialog(
+          backgroundColor: HexColor('#45474B'),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)),
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              InkWell(
+                onTap: () => Navigator.pop(context),
+                child: Icon(Icons.close, color: Colors.white),
+              ),
+            ],
+          ),
+          actionsAlignment: MainAxisAlignment.start,
+          contentPadding: EdgeInsets.all(16.0), // Add padding to the content
+          content: ConstrainedBox(
+            constraints: BoxConstraints(
+              maxHeight: getScreenHeight(context) * 0.5, // Max height if needed
+            ),
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  getNormalText(
+                    module.avail_message!
+                        .replaceAll(',', '\n')
+                        .replaceAll('[[list_root_and]]',''),
+                    context,
+                    family: 'Medium',
+                    size: getScreenHeight(context) * 0.02,
+                    color: Colors.white,
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+      barrierDismissible: false,
+      barrierColor: const Color.fromARGB(255, 255, 255, 255).withOpacity(0.15),
+    );
   }
 }

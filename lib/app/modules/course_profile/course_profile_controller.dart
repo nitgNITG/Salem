@@ -150,9 +150,11 @@ class CourseProfileController extends BaseController {
         "https://salem-mar3y.com/salem_apis/academyApi/json.php?function=course_content_mobile&courseID=$courseId&token=${getLoggedUser().token}");
       print(response);
       if (response['data'] != null) {
-        print(response['data'] );
+        print('=========================Data==========================');
+        print(" data ${response['data']}");
         courseDetails = CourseDetails.fromJson(response['data']);
-        print(courseDetails.enrolUsers);
+        print('=========================courseDetails==========================');
+        print(courseDetails.contents.toList().toString());
         // courseDetails.contents.forEach((element) {element.modules.forEach((element) {print(element.fileDetails!.fileurl);});});
         changeViewState(AppViewState.idle);
         setIsStudentEnrolledToCourse();

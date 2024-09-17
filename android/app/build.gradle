@@ -53,10 +53,10 @@ android {
     }
     signingConfigs {
         release {
-            storeFile file('../app/upload-keystore.jks')
-            storePassword "Eslam@123"
-            keyAlias "upload"
-            keyPassword "Eslam@123"
+            storeFile file('../app/salem.jks')
+            storePassword "123456"
+            keyAlias "salem"
+            keyPassword "123456"
         }
     }
     buildTypes {

@@ -59,7 +59,7 @@ class _CourseContentState extends State<CourseContent> {
                 family: 'Candal',
                 color: HexColor('#F4CE14'),
               ),
-               Icon(
+              Icon(
                 openedIndex == section.id
                     ? Icons.keyboard_arrow_up_sharp
                     : Icons.keyboard_arrow_down_sharp,
@@ -72,16 +72,21 @@ class _CourseContentState extends State<CourseContent> {
           openIndex(section.id == openedIndex ? null : section.id);
         }),
         if (openedIndex == section.id)
-    Container(
-    margin: const EdgeInsets.symmetric(horizontal: 20),
-    padding: const EdgeInsets.all(5),
-    height: (getScreenHeight(context)*0.05)*(section.modules.map((e) => ModuleItem(module: e)).toList().length+2),
-    width: getScreenWidth(context),
-    color: HexColor('#D9D9D9'),
-    child:Column(
-            children:
-                section.modules.map((e) => ModuleItem(module: e)).toList(),
-          )),
+          Container(
+            margin: const EdgeInsets.symmetric(horizontal: 20),
+            padding: const EdgeInsets.all(5),
+            width: getScreenWidth(context),
+            color: HexColor('#D9D9D9'),
+            child: Column(
+              children: [
+                // Map over section.modules to create a list of ModuleItem widgets
+                for (var module in section.modules)
+                  ModuleItem(module: module),
+                // Optionally add additional widgets if needed
+                SizedBox(height: 10), // Example of adding spacing
+              ],
+            ),
+          ),
         getHeightSpace(10)
       ],
     );

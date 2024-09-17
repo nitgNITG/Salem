@@ -53,65 +53,108 @@ class _MyCoursesPageState extends State<MyCoursesPage> {
           child: Column(
             children: [
               NormalAppBar(
-                title: getL10(context).myClass,),
+                title: getL10(context).myClass,
+              ),
               ValueListenableBuilder(
                 valueListenable: controller.state,
                 builder:
                     (BuildContext context, AppViewState value, Widget? child) {
                   print(value.name);
-                  if(value.name=='idle' && controller.myCourses.isEmpty)
-                    return Column(children: [
-                      getHeightSpace(getScreenHeight(context)*0.1),
-                      Image.asset('assets/images/Group.png'),
-                      getHeightSpace(getScreenHeight(context)*0.02),
-                      Image.asset('assets/images/الايميل.png')
-                    ],);
+                  if (value.name == 'idle' && controller.myCourses.isEmpty)
+                    return Column(
+                      children: [
+                        getHeightSpace(getScreenHeight(context) * 0.1),
+                        Image.asset('assets/images/Group.png'),
+                        getHeightSpace(getScreenHeight(context) * 0.02),
+                        Image.asset('assets/images/الايميل.png')
+                      ],
+                    );
                   return Expanded(
-                    child:   GridView.count(
-                     crossAxisCount: 2,
-                     scrollDirection: Axis.vertical,
-                     mainAxisSpacing: 16,
-                     childAspectRatio: 8/11,
-                     cacheExtent: 8,
-                     crossAxisSpacing: 16,
-                     children : controller.myCourses.map((e) =>SizedBox(
-                          height:getScreenHeight(context)>getScreenWidth(context)? getScreenHeight(context)*0.3:getScreenWidth(context)*0.5,
-                          width: getScreenWidth(context)-50,
-                          child:        Container(
-                          margin: EdgeInsets.all( 5),
-                        width: getScreenWidth(context)*0.4, // Adjust the width as needed
-                        height:getScreenHeight(context)>getScreenWidth(context)? getScreenHeight(context)*0.3:getScreenWidth(context)*0.5,// Adjust the height as needed
-                        child:SingleChildScrollView(child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Image.network(e.imageUrl, width: getScreenWidth(context)*0.4, // Adjust the width as needed
-                                    height: getScreenHeight(context)>getScreenWidth(context)? getScreenHeight(context)*0.15:
-                        getScreenWidth(context)*0.275,fit: BoxFit.fill)
-                              ,Container(alignment: Alignment.center,color: HexColor('#45474B'), width: getScreenWidth(context)*0.4, // Adjust the width as needed
-                                  height: getScreenHeight(context)>getScreenWidth(context)? getScreenHeight(context)*0.125:
-                                  getScreenWidth(context)*0.175,child: Text(e.fullname,
-                                      textAlign: TextAlign.center,style: TextStyle(fontSize:
-                                      getScreenWidth(context)<getScreenHeight(context)?
-                                      getScreenWidth(context)*0.03:getScreenHeight(context)*0.03,fontFamily: 'Bold'))
-                              )]
-                        ))
-                          )).onTap(() {
-                        if (getIt<HomeController>().getIsUserGuest()) {
-                          displayYouNeedLogin(context);
-                        } else {
-                          Navigator.of(context).push(
-                            routeToPage(
-                              CourseProfilePage(
-                                myCourse: e,
-                              ),
-                            ),
-                          );
-                        }
-                      })).toList()
-                    )
-                  );
-
+                      child: GridView.count(
+                          crossAxisCount: 2,
+                          scrollDirection: Axis.vertical,
+                          mainAxisSpacing: 16,
+                          childAspectRatio: 8 / 11,
+                          cacheExtent: 8,
+                          crossAxisSpacing: 16,
+                          children: controller.myCourses
+                              .map((e) => SizedBox(
+                                      height: getScreenHeight(context) >
+                                              getScreenWidth(context)
+                                          ? getScreenHeight(context) * 0.3
+                                          : getScreenWidth(context) * 0.5,
+                                      width: getScreenWidth(context) - 50,
+                                      child: Container(
+                                          margin: EdgeInsets.all(5),
+                                          width: getScreenWidth(context) *
+                                              0.4, // Adjust the width as needed
+                                          height: getScreenHeight(context) >
+                                                  getScreenWidth(context)
+                                              ? getScreenHeight(context) * 0.3
+                                              : getScreenWidth(context) *
+                                                  0.5, // Adjust the height as needed
+                                          child: SingleChildScrollView(
+                                              child: Column(
+                                                  mainAxisSize:
+                                                      MainAxisSize.min,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                Image.network(e.imageUrl,
+                                                    width: getScreenWidth(
+                                                            context) *
+                                                        0.4, // Adjust the width as needed
+                                                    height: getScreenHeight(
+                                                                context) >
+                                                            getScreenWidth(
+                                                                context)
+                                                        ? getScreenHeight(
+                                                                context) *
+                                                            0.15
+                                                        : getScreenWidth(
+                                                                context) *
+                                                            0.275,
+                                                    fit: BoxFit.fill),
+                                                Container(
+                                                    alignment: Alignment.center,
+                                                    color: HexColor('#45474B'),
+                                                    width: getScreenWidth(context) *
+                                                        0.4, // Adjust the width as needed
+                                                    height: getScreenHeight(context) >
+                                                            getScreenWidth(
+                                                                context)
+                                                        ? getScreenHeight(context) *
+                                                            0.125
+                                                        : getScreenWidth(context) *
+                                                            0.175,
+                                                    child: Text(e.fullname,
+                                                        textAlign:
+                                                            TextAlign.center,
+                                                        style: TextStyle(
+                                                            fontSize: getScreenWidth(
+                                                                        context) <
+                                                                    getScreenHeight(
+                                                                        context)
+                                                                ? getScreenWidth(
+                                                                        context) *
+                                                                    0.03
+                                                                : getScreenHeight(context) * 0.03,
+                                                            fontFamily: 'Bold')))
+                                              ])))).onTap(() {
+                                    if (getIt<HomeController>()
+                                        .getIsUserGuest()) {
+                                      displayYouNeedLogin(context);
+                                    } else {
+                                      Navigator.of(context).push(
+                                        routeToPage(
+                                          CourseProfilePage(
+                                            myCourse: e,
+                                          ),
+                                        ),
+                                      );
+                                    }
+                                  }))
+                              .toList()));
                 },
               )
             ],
@@ -128,11 +171,11 @@ class _MyCoursesPageState extends State<MyCoursesPage> {
 
 class CourseOrMyCourseItemFromCoursesPage extends StatelessWidget {
   const CourseOrMyCourseItemFromCoursesPage(
-      this.controller, {
-        super.key,
-        this.course,
-        this.myCourse,
-      });
+    this.controller, {
+    super.key,
+    this.course,
+    this.myCourse,
+  });
 
   final MyCoursesController controller;
   final Course? course;
