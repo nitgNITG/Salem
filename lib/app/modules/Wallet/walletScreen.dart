@@ -1,8 +1,10 @@
 import 'dart:convert';
+import 'package:al_mariey/app/widgets/app_bars.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../../core/data/shared_preferences/sharedpreference_service.dart';
+import '../../utils/helper_funcs.dart';
 import 'model.dart';
 import 'package:http/http.dart'as http;
 
@@ -44,23 +46,32 @@ class _WalletscreenState extends State<Walletscreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Wallet Details'),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              'Balance: $balance EG',
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: 25,
-                fontWeight: FontWeight.bold,
-              ),
+
+      body: Column(
+        children: [
+          NormalAppBar(
+            title:  getL10(context).wallet,
+          ),
+          Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 50, 0, 0),
+                  child: Text(
+                    '${getL10(context).balance}: $balance ${ getL10(context).egp}',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 25,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
