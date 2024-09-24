@@ -10,6 +10,7 @@ saveToSharedPref(response) async {
   await SharedPreferencesService.instance
       .setString(SharedPreferencesKeys.loggedUser, loggedUser.toString());
   return;
+
 }
 
 contactUsWhatsapp() {

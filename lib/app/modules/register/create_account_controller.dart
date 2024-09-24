@@ -13,7 +13,6 @@ import '../home/home.dart';
 class RegisterController {
   final formKey = GlobalKey<FormState>();
   final studentName_1 = TextEditingController(text: "");
-
   final studentName_4 = TextEditingController(text: "");
   final studentEmail = TextEditingController(text: "");
   final studentPhoneNumber_1 = TextEditingController(text: "");

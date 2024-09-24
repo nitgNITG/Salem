@@ -19,12 +19,11 @@ class SharedPreferencesService {
 
   // Get a string value from SharedPreferences
   String? getString(String key, {String? defaultValue}) {
-    try{
+    try {
       return _prefs.getString(key) ?? defaultValue;
-    }catch(e){
+    } catch (e) {
       return defaultValue;
     }
-
   }
 
   // Set a string value in SharedPreferences
@@ -60,5 +59,38 @@ class SharedPreferencesService {
   // Clear a value from SharedPreferences
   Future<void> remove(String key) async {
     await _prefs.remove(key);
+  }
+
+  Future<Map<String, dynamic>> getUserData() async {
+    final prefs = await SharedPreferences.getInstance();
+
+    // Retrieve user data from SharedPreferences
+    int userId = prefs.getInt('userId') ?? 0; // Default to 0 if not found
+    String firstName = prefs.getString('firstName') ?? '';
+    String lastName = prefs.getString('lastName') ?? '';
+    String email = prefs.getString('email') ?? '';
+    String token = prefs.getString('token') ?? '';
+    String have_wallet = prefs.getString('have_wallet') ?? '';
+    String wallet_uuid = prefs.getString('wallet_uuid') ?? '';
+
+    // Print retrieved values
+    print('Retrieved from Shared Preferences:');
+    print('User ID: $userId');
+    print('First Name: $firstName');
+    print('Last Name: $lastName');
+    print('Email: $email');
+    print('Token: $token');
+    print('wallet_uuid: $wallet_uuid');
+
+    // Return as a map
+    return {
+      'userId': userId,
+      'firstName': firstName,
+      'lastName': lastName,
+      'email': email,
+      'token': token,
+      'have_wallet':have_wallet,
+      'wallet_uuid':wallet_uuid,
+    };
   }
 }

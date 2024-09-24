@@ -48,15 +48,15 @@ android {
         minSdkVersion 21
         targetSdkVersion 34
         multiDexEnabled true
-        versionCode 14
-        versionName "14"
+        versionCode 15
+        versionName "15"
     }
     signingConfigs {
         release {
-            storeFile file('../app/salem.jks')
-            storePassword "123456"
-            keyAlias "salem"
-            keyPassword "123456"
+            storeFile file('../app/upload-keystore.jks')
+            storePassword "Eslam@123"
+            keyAlias "upload"
+            keyPassword "Eslam@123"
         }
     }
     buildTypes {
@@ -64,6 +64,8 @@ android {
             // TODO: Add your own signing config for the release build.
             // Signing with the debug keys for now, so `flutter run --release` works.
             signingConfig signingConfigs.release
+            shrinkResources false
+
         }
     }
 }
