@@ -4,7 +4,6 @@ import 'package:al_mariey/app/core/constants_and_enums/enums.dart';
 import 'package:al_mariey/app/core/data/api/ApiCall.dart';
 import 'package:al_mariey/app/core/data/shared_preferences/shared_preferences_keys.dart';
 import 'package:al_mariey/app/core/data/shared_preferences/sharedpreference_service.dart';
-import 'package:al_mariey/app/modules/Wallet/model.dart';
 import 'package:al_mariey/app/modules/base/base_controller.dart';
 import 'package:al_mariey/app/widgets/messages.dart';
 import 'package:flutter/material.dart';
