@@ -135,6 +135,8 @@
   "wallet": "Wallet",
   "profileSettings": "Profile settings",
   "reports": "Reports",
+  "balance": "Balance",
+  "egp": "EGP",
   "requirementsForTheCourse": "Requirements that required to enroll the course",
   "resetPassword": "Reset password",
   "reWritePassword": "Re write password",
