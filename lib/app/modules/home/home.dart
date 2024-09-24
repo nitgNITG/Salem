@@ -18,6 +18,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:hexcolor/hexcolor.dart';
 import '../../widgets/texts.dart';
+import '../Wallet/walletScreen.dart';
 import '../contact_us/contact_us.dart';
 import '../student_profile/profile_page.dart';
 
@@ -184,6 +185,26 @@ class _HomeMainParentPageState extends State<HomeMainParentPage> {
                     ListTile(
                         onTap: () {
                           scaffoldKey.currentState!.closeDrawer();
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (_) => Walletscreen()));
+                        },
+                        leading: ImageIcon(
+                            AssetImage('assets/images/wallet.png'),
+                            color: kDefaultIconDarkColor,
+                            size: 16),
+                        title: Text(getL10(context).wallet,
+                            style: TextStyle(
+                                fontFamily: 'Medium',
+                                fontWeight: FontWeight.w300,
+                                fontSize: 16,
+                                color: kDefaultIconDarkColor))),
+                    Container(
+                        height: 2,
+                        width: getScreenWidth(context) * 0.6,
+                        color: HexColor('#F4CE14')),
+                    ListTile(
+                        onTap: () {
+                          scaffoldKey.currentState!.closeDrawer();
                           Navigator.of(context).push(
                               MaterialPageRoute(builder: (_) => ContactUs()));
                         },
@@ -199,7 +220,7 @@ class _HomeMainParentPageState extends State<HomeMainParentPage> {
                                 fontWeight: FontWeight.w300))),
                     getHeightSpace(
                         getScreenHeight(context) > getScreenWidth(context)
-                            ? getScreenHeight(context) * 0.3
+                            ? getScreenHeight(context) * 0.1
                             : getScreenWidth(context) * 0.1),
                     InkWell(
                         onTap: () async {
@@ -229,7 +250,7 @@ class _HomeMainParentPageState extends State<HomeMainParentPage> {
                                 AssetImage('assets/images/logout.png'),
                                 size: getScreenWidth(context) * 0.1,
                                 color: HexColor('#45474B')))),
-                  ]))
+                  ])),
         ]);
   }
 

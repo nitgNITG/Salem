@@ -154,6 +154,8 @@ print(response);
       phone: phoneController.text.toString(),
       coursesCount: getLoggedUser().coursesCount,
       isAdmin: getLoggedUser().isAdmin,
+      have_wallet: getLoggedUser().have_wallet,
+      wallet_uuid: getLoggedUser().wallet_uuid,
     );
 
     await SharedPreferencesService.instance
