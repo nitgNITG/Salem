@@ -1,5 +1,6 @@
 // ignore_for_file: use_build_context_synchronously
 import 'package:flutter/cupertino.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../core/constants_and_enums/enums.dart';
 import '../../core/data/api/ApiCall.dart';
@@ -9,6 +10,7 @@ import '../../core/data/shared_preferences/sharedpreference_service.dart';
 import '../../utils/routing_utils.dart';
 import '../../widgets/messages.dart';
 import '../home/home.dart';
+import '../login/login_page.dart';
 
 class RegisterController {
   final formKey = GlobalKey<FormState>();
@@ -35,14 +37,15 @@ class RegisterController {
         ).toString();
         print(url);
         final response = await CallApi.getRequest(url.toString());
+        print(response);
+
         if (response["status"] == "success") {
           SharedPreferencesService.instance
               .setBool(SharedPreferencesKeys.userTypeIsGust, false);
-          await saveToSharedPref(response["data"]);
 
           await Future.delayed(const Duration(milliseconds: 200));
           Navigator.of(context).pushAndRemoveUntil(
-            routeToPage(HomeMainParentPage()),
+            routeToPage(LoginPage()),
             (route) => false,
           );
         } else {
@@ -60,4 +63,5 @@ class RegisterController {
   void changeViewState(AppViewState state) {
     viewState.value = state;
   }
+
 }

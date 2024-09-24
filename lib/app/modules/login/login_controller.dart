@@ -44,7 +44,7 @@ class LoginController extends BaseController {
         await saveToSharedPref(respose["data"]);
 
 
-        await saveToSharedPref2(respose["data"]);
+          await saveToSharedPref2(respose["data"]);
 
 
         changeViewState(AppViewState.idle);
