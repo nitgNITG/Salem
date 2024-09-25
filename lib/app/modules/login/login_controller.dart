@@ -5,6 +5,7 @@ import 'package:al_mariey/app/core/data/api/ApiCall.dart';
 import 'package:al_mariey/app/core/data/shared_preferences/shared_preferences_keys.dart';
 import 'package:al_mariey/app/core/data/shared_preferences/sharedpreference_service.dart';
 import 'package:al_mariey/app/modules/base/base_controller.dart';
+// import 'package:al_mariey/app/utils/parm.dart';
 import 'package:al_mariey/app/widgets/messages.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -103,6 +104,7 @@ class LoginController extends BaseController {
     final prefs = await SharedPreferences.getInstance();
 
     // Assuming your userData contains fields like id, token, etc.
+
     prefs.setInt('userId', userData['id']);
     prefs.setString('firstName', userData['firstName']);
     prefs.setString('lastName', userData['lastName']);
@@ -110,8 +112,7 @@ class LoginController extends BaseController {
     prefs.setString('token', userData['token']);
     prefs.setString('have_wallet', userData['have_wallet'].toString());
     prefs.setString('wallet_uuid', userData['wallet_uuid']);
-
-    // Print the values being saved
+   // Print the values being saved
     print('Saved to Shared Preferences:');
     print('User ID: ${userData['id']}');
     print('First Name: ${userData['firstName']}');
@@ -120,5 +121,6 @@ class LoginController extends BaseController {
     print('Token: ${userData['token']}');
     print('have_wallet: ${userData['have_wallet'].toString()}');
     print('wallet_uuid: ${userData['wallet_uuid']}');
+
   }
 }
