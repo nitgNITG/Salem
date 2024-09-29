@@ -50,8 +50,10 @@
   "doYouHaveAnAcademicQualification": "هل لديك مؤهل اكاديمي؟",
   "editProfile": "تعديل الملف الشخصي",
   "editStudentData": "تعديل  البيانات",
+  "charge": "شحن",
   "educationAndEmployment": "المستوي التعليمي والوظيفة",
   "email": "البريد الإلكتروني",
+  "amount": "المبلغ",
 
      "newp": " كلمة المرور الجديدة",
   "should": "يجب أن يكون لديك حساب للدخول إلى الدورة",
@@ -150,6 +152,7 @@
   "studentsNumber": "عدد الطلاب",
   "studyDetails": "بيانات الدوره التدريبيه",
   "subscribeInCourse": "اشتراك في الكورس",
+  "recharge": "أعادة شحن المحفظة",
   "subscribeToShowCourseContent": "إشترك في الكورس لعرض المحتوى",
   "teacherDescription": "وصف المعلم",
   "thePaswordsNotMatch": "The paswords not match",
