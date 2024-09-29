@@ -152,6 +152,7 @@
   "studentsCount": "Students count",
   "studentsNumber": "Students number",
   "studyDetails": "Study details",
+  "recharge":" Wallet Recharge",
   "subscribeInCourse": "subscribe in course",
   "subscribeToShowCourseContent": "Subscribe to show course content",
   "teacherDescription": "Teacher description",
@@ -174,5 +175,7 @@
   "welcome": "Welcome !",
   "workshops": "Workshops",
   "yes": "Yes",
+  "amount": "Amount",
+  "charge": "Charge",
   "youAreWelcomeToContactUs": "You are welcome to contact us"
 }

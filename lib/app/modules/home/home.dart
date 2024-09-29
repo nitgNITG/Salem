@@ -9,6 +9,7 @@ import 'package:al_mariey/app/modules/global_used_widgets/widget_methods.dart';
 import 'package:al_mariey/app/modules/home/main_app_controller.dart';
 import 'package:al_mariey/app/modules/home_page/home_controller.dart';
 import 'package:al_mariey/app/modules/login/login_page.dart';
+import 'package:al_mariey/app/modules/wallet_recharge/Drafet_SDK/walletRecharge.dart';
 import 'package:al_mariey/app/utils/helper_funcs.dart';
 import 'package:al_mariey/app/utils/routing_utils.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
@@ -21,6 +22,7 @@ import '../../widgets/texts.dart';
 import '../Wallet/walletScreen.dart';
 import '../contact_us/contact_us.dart';
 import '../student_profile/profile_page.dart';
+import '../wallet_recharge/view/Recharge_Wallet.dart';
 
 var scaffoldKey = GlobalKey<ScaffoldState>();
 final TextEditingController TC = TextEditingController();
@@ -198,6 +200,26 @@ class _HomeMainParentPageState extends State<HomeMainParentPage> {
                                 fontWeight: FontWeight.w300,
                                 fontSize: 16,
                                 color: kDefaultIconDarkColor))),
+                    Container(
+                        height: 2,
+                        width: getScreenWidth(context) * 0.6,
+                        color: HexColor('#F4CE14')),
+                    ListTile(
+                        onTap: () {
+                          scaffoldKey.currentState!.closeDrawer();
+                          Navigator.of(context).push(
+                              MaterialPageRoute(builder: (_) => web_recharge(token: lu.token,)));
+                        },
+                        leading: ImageIcon(
+                            AssetImage('assets/images/add-money-wallet-icon.png'),
+                            color: kDefaultIconDarkColor,
+                            size: 19),
+                        title: Text(getL10(context).recharge,
+                            style: TextStyle(
+                                fontSize: 16,
+                                color: kDefaultIconDarkColor,
+                                fontFamily: 'Medium',
+                                fontWeight: FontWeight.w300))),
                     Container(
                         height: 2,
                         width: getScreenWidth(context) * 0.6,
